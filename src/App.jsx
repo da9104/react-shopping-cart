@@ -4,7 +4,6 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './routes/Home.component'
 import Navigation from './routes/Navigation.component'
 import Authentication from './components/authentication/Authentication.component'
-import { CategoriesProvider } from './contexts/categories.context'
 import { CartProvider } from './contexts/cart.context'
 import Shop from './routes/shop/shop.component'
 import Checkout from './components/checkout/checkout.component'
@@ -28,7 +27,6 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <CategoriesProvider>
       <CartProvider>
         <Routes>
           <Route path='/' element={ <Navigation />} >
@@ -39,7 +37,7 @@ const App = () => {
           </Route>
         </Routes>
       </CartProvider>
-    </CategoriesProvider>
+
   )
 }
 
