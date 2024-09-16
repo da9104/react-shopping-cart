@@ -1,16 +1,33 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Routes, Route } from 'react-router-dom'
 import Home from './routes/Home.component'
 import Navigation from './routes/Navigation.component'
 import Authentication from './components/authentication/Authentication.component'
-import { UserProvider } from './contexts/user.context'
 import { CategoriesProvider } from './contexts/categories.context'
 import { CartProvider } from './contexts/cart.context'
 import Shop from './routes/shop/shop.component'
 import Checkout from './components/checkout/checkout.component'
+import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase.utils";
+import { setCurrentUser } from "./store/user/user.action";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user) => {
+      if (user) {
+        console.log(user)
+        createUserDocumentFromAuth(user);
+      }
+
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
+
   return (
-  <UserProvider>
     <CategoriesProvider>
       <CartProvider>
         <Routes>
@@ -23,9 +40,7 @@ const App = () => {
         </Routes>
       </CartProvider>
     </CategoriesProvider>
-  </UserProvider>
   )
-
 }
 
 export default App

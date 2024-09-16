@@ -1,5 +1,7 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useRef } from "react";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "../utils/firebase/firebase.utils";
+
+import { createAction } from '../utils/reducer/reducer.utils'
 
 export const UserContext = createContext({
     currentUser: null,
@@ -11,6 +13,10 @@ export const USER_ACTION_TYPES = {
 
 }
 
+const INITIAL_STATE = {
+  currentUser: null
+}
+
 const userReducer = (state, action) => {
   const { type, payload } = action
 
@@ -20,6 +26,7 @@ const userReducer = (state, action) => {
   switch(type) {
     case USER_ACTION_TYPES.SET_CURRENT_USER:
       return {
+        ...state,
         currentUser: payload
       }
       default:
@@ -27,19 +34,14 @@ const userReducer = (state, action) => {
   }
 }
 
-const INITIAL_STATE = {
-  currentUser: null
-}
-
 export const UserProvider = ({ children }) => {
-    // const [currentUser, setCurrentUser] = useState(null)
     const [{ currentUser }, dispatch ] = useReducer(userReducer, INITIAL_STATE)
     const setCurrentUser = (user) => {
-      dispatch({ type: USER_ACTION_TYPES.SET_CURRENT_USER, payload: user })
+      dispatch(
+        createAction(USER_ACTION_TYPES.SET_CURRENT_USER, user)
+      )
     }
 
-    console.log(currentUser)
-    
     const value = {currentUser, setCurrentUser}
 
     useEffect(() => {
