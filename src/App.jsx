@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Routes, Route } from 'react-router-dom'
+import './styles/global.css'
 import Home from './routes/Home.component'
 import Navigation from './routes/Navigation.component'
 import Authentication from './components/authentication/Authentication.component'

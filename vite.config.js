@@ -16,12 +16,5 @@ export default defineConfig({
     headers: {
       'Cross-Origin-Embedder-Policy': 'unsafe-none'
     },
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://crwn-shop-db-dd60f.firebaseapp.com',
-    //     changeOrigin: true,
-    //     rewrite: (path) => path.replace(/^\/api/, ''),
-    //   },
-    // }
   },
 })

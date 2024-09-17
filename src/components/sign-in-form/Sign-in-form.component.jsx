@@ -68,6 +68,7 @@ const SignInForm = () => {
                 name='password'
                 value={password}
                 required />
+                
         <div className='buttons-container'>
         <Button type='submit' buttonType={BUTTON_TYPE_CLASSES.inverted}>Sign In</Button>
         <Button type='button' buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>Google sign in</Button>
