@@ -47,17 +47,17 @@ const Navigation = () => {
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Navbar.Link href="/" active>
+          <Link to="/" active>
             Home
-          </Navbar.Link>
-          <Navbar.Link href="/shop">Shop</Navbar.Link>
-          <Navbar.Link href="#">Sale</Navbar.Link>
+          </Link>
+          <Link to="/shop">Shop</Link>
+          <Link to="#">Sale</Link>
            {
             currentUser 
             ? ( 
-               <Navbar.Link as='span' onClick={signOutUser}>Sign Out</Navbar.Link>
+               <Link as='span' onClick={signOutUser}>Sign Out</Link>
             ) : (
-               <Navbar.Link href="/auth">Sign In</Navbar.Link>
+               <Link to="/auth">Sign In</Link>
              )
            }
         </Navbar.Collapse>
