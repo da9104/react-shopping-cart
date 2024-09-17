@@ -1,7 +1,6 @@
 import { useContext } from "react"
 import { useSelector } from "react-redux"
 import { Outlet, Link } from "react-router-dom"
-import BrandLogo from '../assets/crown.svg'
 import { signOutUser } from '../utils/firebase/firebase.utils'
 import CartIcon from "../components/cart-icon/Cart-icon"
 import CartDropdown from "../components/cart-dropdown/Cart-dropdown"
@@ -9,11 +8,9 @@ import { CartContext } from "../contexts/cart.context"
 import { NavigationContainer, LogoContainer, NavLinks, NavLink } from '../styles/navigation.styles'
 import { selectCurrentUser } from "../store/user/user.selector"
 import { Avatar, Dropdown, Navbar } from "flowbite-react";
-// import NavBar from "./NavBar"
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser)
-    // const { currentUser } = useContext(UserContext)
     const { isCartOpen } = useContext(CartContext)
 
     return (
@@ -31,18 +28,18 @@ const Navigation = () => {
             arrowIcon={false}
             inline
             label={
-              <Avatar size="xs" alt="User settings" rounded  className="lg:mr-0 sm:mr-4"/>
+              <Avatar size="xs" alt="User settings" rounded  className="lg:mr-0 sm:mr-4 hidden lg:block sm:hidden"/>
             }
           >
             <Dropdown.Header>
-              <span className="block text-sm">Bonnie Green</span>
-              <span className="block truncate text-sm font-medium">name@flowbite.com</span>
+            { currentUser ? (<Link as='span' onClick={signOutUser}>Sign Out</Link>) 
+                           : (<Link to='/auth' as='span' className="block text-sm">Sign In</Link>) }
+              {/* <span className="block truncate text-sm font-medium">name@flowbite.com</span> */}
             </Dropdown.Header>
             <Dropdown.Item>Dashboard</Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Item>Earnings</Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item>Sign out</Dropdown.Item>
+            {/* <Dropdown.Divider /> */}
           </Dropdown>
           <Navbar.Toggle />
         </div>
